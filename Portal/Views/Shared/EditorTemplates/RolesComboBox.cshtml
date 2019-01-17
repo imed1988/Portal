@@ -1,0 +1,3 @@
+﻿@using Portal.ViewModels.Account
+
+@Html.DropDownList("", AccountViewModel.GetAllRoles((int) ViewBag.RoleId), string.Empty, new {@class="form-control"})
