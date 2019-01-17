@@ -6,3 +6,14 @@
 <h2>Dashboard</h2>
 <p>Welcome <b>@WebSecurity.CurrentUserName</b> - <a href='@Url.Action("SignOut", "Account")'>Sign out</a></p>
 
+<p>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+    {
+        @Html.ActionLink("Register New User", "Register", "Account") <span> | </span>
+    }
+
+    @Html.ActionLink("Change Password", "ChangePassword", "Account") <span> | </span>
+
+    @Html.ActionLink("User Profile", "UserProfile", "Account")
+
+</p>

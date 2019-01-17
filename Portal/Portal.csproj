@@ -161,8 +161,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\ChangePasswordModel.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
+    <Compile Include="Models\Account\UserProfileModel.cs" />
     <Compile Include="Models\General\AppSetting.cs" />
     <Compile Include="Models\General\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,6 +189,8 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\RolesComboBox.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
