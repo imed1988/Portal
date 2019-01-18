@@ -4,16 +4,78 @@
 }
 
 <h2>Dashboard</h2>
-<p>Welcome <b>@WebSecurity.CurrentUserName</b> - <a href='@Url.Action("SignOut", "Account")'>Sign out</a></p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-danger">
+            Welcome <b>@WebSecurity.CurrentUserName</b> - <a href='@Url.Action("SignOut", "Account")'>Sign out</a>
+            <span> | </span>
 
-<p>
-    @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
-    {
-        @Html.ActionLink("Register New User", "Register", "Account") <span> | </span>
-    }
+            @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+            {
+                @Html.ActionLink("Register New User", "Register", "Account") <span> | </span>
+            }
 
-    @Html.ActionLink("Change Password", "ChangePassword", "Account") <span> | </span>
+            @Html.ActionLink("Change Password", "ChangePassword", "Account") <span> | </span>
 
-    @Html.ActionLink("User Profile", "UserProfile", "Account")
+            @Html.ActionLink("User Profile", "UserProfile", "Account")
 
-</p>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card bg-danger text-white mb-3" style="width: 20rem; border-width:medium ; box-shadow:5px 5px 5px gray;">
+            <div class="card-header bg-transparent border-danger">
+                <h4 class="card-title " style="height:1rem; font-size:1rem;">User Management</h4>
+            </div>
+            <div class="card-body bg-light">
+                <style>
+                    .UserList {
+                        color: red;
+                        text-decoration: none;
+                    }
+
+                        .UserList:hover {
+                            color: white;
+                            background-color: red;
+                        }
+                </style>
+                <a href='@Url.Action("UserList","Account")' class="nav-link">
+                    <text class="UserList nav-link">User List</text>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card bg-danger text-white  mb-3" style="width: 20rem; border-width:medium ; box-shadow:5px 5px 5px gray;">
+            <div class="card-header bg-transparent border-danger">
+                <h4 class="card-title" style="height:1rem; font-size:1rem;">User Management</h4>
+            </div>
+            <div class="card-body bg-light">
+                <style>
+                    .UserList {
+                        color: red;
+                        text-decoration: none;
+                    }
+
+                        .UserList:hover {
+                            color: white;
+                            background-color: red;
+                        }
+                </style>
+                <a href='@Url.Action("UserList","Account")' class="nav-link">
+                    <text class="UserList nav-link">User List</text>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+

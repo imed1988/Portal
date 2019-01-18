@@ -13,6 +13,13 @@ namespace Portal.Controllers
 {
     public class AccountController : Controller
     {
+        [HttpGet, Authorize(Roles="Administrator, Manager")]
+        public ActionResult UserList()
+        {
+            List<UserModel> users = AccountViewModel.GetAllUsers();
+            return View(users);
+        }
+
         [HttpGet]
         public ActionResult Login()
         {

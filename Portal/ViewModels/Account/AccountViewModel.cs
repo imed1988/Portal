@@ -89,5 +89,41 @@ namespace Portal.ViewModels.Account
                 }
             }
         }
+
+        public static List<UserModel> GetAllUsers()
+        {
+            List<UserModel> users = new List<UserModel>();
+
+            using (SqlConnection conn = new SqlConnection(AppSetting.ConnectionString()))
+            {
+                using (SqlCommand cmd = new SqlCommand("usp_UsersGetAllUsers", conn))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    conn.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        UserModel user = new UserModel();
+                        user.UserId = Convert.ToInt32(reader["UserId"]);
+                        user.UserName = reader["UserName"].ToString();
+                        user.FullName = reader["FullName"].ToString();
+                        user.Mail = reader["Mail"].ToString();
+
+                        users.Add(user);
+                    }
+
+
+                }
+            }
+
+            return users;
+        }
+
+
+
+
+
     }
 }
