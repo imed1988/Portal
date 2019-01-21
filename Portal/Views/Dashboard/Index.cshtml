@@ -3,6 +3,10 @@
     ViewBag.Title = "Index";
 }
 
+<link href="~/Content/font-awesome.css" rel="stylesheet" />
+<script src="~/Scripts/js/solid.js"></script>
+<script src="~/Scripts/js/fontawesome.js"></script>
+
 <h2>Dashboard</h2>
 <div class="row">
     <div class="col-md-12">
@@ -22,60 +26,206 @@
         </div>
     </div>
 
-    <div class="col-md-6">
-        <div class="card bg-danger text-white mb-3" style="width: 20rem; border-width:medium ; box-shadow:5px 5px 5px gray;">
-            <div class="card-header bg-transparent border-danger">
-                <h4 class="card-title " style="height:1rem; font-size:1rem;">User Management</h4>
-            </div>
-            <div class="card-body bg-light">
-                <style>
-                    .UserList {
-                        color: red;
-                        text-decoration: none;
-                    }
+    @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+    {
+        <div class="col-md-6">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Users Management</h3>
+                </div>
 
-                        .UserList:hover {
-                            color: white;
-                            background-color: red;
-                        }
-                </style>
-                <a href='@Url.Action("UserList","Account")' class="nav-link">
-                    <text class="UserList nav-link">User List</text>
-                </a>
+                <div class="panel-body text-center">
+                    <div class="col-md-3">
+
+                        <a href='@Url.Action("UserList", "Account")'>
+                            <i class="fas fa-users fa-3x"></i>
+                            <h4>Users List</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href='@Url.Action("Register", "Account")'>
+                            <i class="fas fa-user fa-3x"></i>
+                            <h4>Register User</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href="#">
+                            <i class="fas fa-user-slash fa-3x"></i>
+                            <h4>Ban User</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href="#">
+                            <i class="fas fa-user-check fa-3x"></i>
+                            <h4>Activate User</h4>
+                        </a>
+
+                    </div>
+
+                </div>
+
             </div>
-            
         </div>
-    </div>
 
-    <div class="col-md-6">
-        <div class="card bg-danger text-white  mb-3" style="width: 20rem; border-width:medium ; box-shadow:5px 5px 5px gray;">
-            <div class="card-header bg-transparent border-danger">
-                <h4 class="card-title" style="height:1rem; font-size:1rem;">User Management</h4>
-            </div>
-            <div class="card-body bg-light">
-                <style>
-                    .UserList {
-                        color: red;
-                        text-decoration: none;
-                    }
+    }
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Students Management</h3>
+                </div>
 
-                        .UserList:hover {
-                            color: white;
-                            background-color: red;
-                        }
-                </style>
-                <a href='@Url.Action("UserList","Account")' class="nav-link">
-                    <text class="UserList nav-link">User List</text>
-                </a>
+                <div class="panel-body text-center">
+                    <div class="col-md-3">
+
+                        <a href='@Url.Action("UserList","Account")'>
+                            <i class="fas fa-users fa-3x"></i>
+                            <h4>Users List</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href='@Url.Action("Register","Account")'>
+                            <i class="fas fa-user fa-3x"></i>
+                            <h4>Register User</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href="#">
+                            <i class="fas fa-user-slash fa-3x"></i>
+                            <h4>Ban User</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href="#">
+                            <i class="fas fa-user-check fa-3x"></i>
+                            <h4>Activate User</h4>
+                        </a>
+
+                    </div>
+
+                </div>
+
             </div>
-            
         </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Help & Support</h3>
+                </div>
+
+                <div class="panel-body text-center">
+                    <div class="col-md-3">
+
+                        <a href='@Url.Action("UserList","Account")'>
+                            <i class="fas fa-users fa-3x"></i>
+                            <h4>Users List</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href='@Url.Action("Register","Account")'>
+                            <i class="fas fa-user fa-3x"></i>
+                            <h4>Register User</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href="#">
+                            <i class="fas fa-user-slash fa-3x"></i>
+                            <h4>Ban User</h4>
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <a href="#">
+                            <i class="fas fa-user-check fa-3x"></i>
+                            <h4>Activate User</h4>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        @if (User.IsInRole("Administrator") || User.IsInRole("Manager"))
+        {
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Employees Management</h3>
+                    </div>
+
+                    <div class="panel-body text-center">
+                        <div class="col-md-3">
+
+                            <a href='@Url.Action("UserList", "Account")'>
+                                <i class="fas fa-users fa-3x"></i>
+                                <h4>Employees List</h4>
+                            </a>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <a href='@Url.Action("Register", "Account")'>
+                                <i class="fas fa-user fa-3x"></i>
+                                <h4>New Employee</h4>
+                            </a>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <a href="#">
+                                <i class="fas fa-user-slash fa-3x"></i>
+                                <h4>Employee Report</h4>
+                            </a>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <a href="#">
+                                <i class="fas fa-user-check fa-3x"></i>
+                                <h4>Activate User</h4>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        }
+
+
+
+
     </div>
-
-
-
-
-
-</div>
 
 
