@@ -30,10 +30,12 @@ namespace Portal.Models.Account
 
         [Display(Name = "Mail :")]
         [Required(ErrorMessage = "Mail is Required")]
+        [EmailAddress(ErrorMessage ="Mail Required")]
         public string Mail { get; set; }
 
         [Display(Name = "Confirm Mail :")]
         [Required(ErrorMessage = "Confirm Mail is Required")]
+        [EmailAddress(ErrorMessage = "Mail Required")]
         [Compare(otherProperty: "Mail", ErrorMessage = "Mail doesn't match")]
         public string ConfirmMail { get; set; }
 

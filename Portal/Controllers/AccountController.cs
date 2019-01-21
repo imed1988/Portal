@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
@@ -13,7 +14,7 @@ namespace Portal.Controllers
 {
     public class AccountController : Controller
     {
-        [HttpGet, Authorize(Roles="Administrator, Manager")]
+        [HttpGet, Authorize(Roles = "Administrator, Manager")]
         public ActionResult UserList()
         {
             List<UserModel> users = AccountViewModel.GetAllUsers();
@@ -29,7 +30,7 @@ namespace Portal.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel loginModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 bool isAuthenticated = WebSecurity.Login(loginModel.UserName, loginModel.Password, loginModel.RememberMe);
 
@@ -63,7 +64,7 @@ namespace Portal.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles="Administrator, Manager")]
+        [Authorize(Roles = "Administrator, Manager")]
         public ActionResult Register()
         {
             GetRolesForCurrentUser();
@@ -85,11 +86,11 @@ namespace Portal.Controllers
         {
             GetRolesForCurrentUser();
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 bool isUserExists = WebSecurity.UserExists(registerModel.Username);
 
-                if(isUserExists)
+                if (isUserExists)
                 {
                     ModelState.AddModelError("Username", "Username already exists");
                 }
@@ -99,7 +100,7 @@ namespace Portal.Controllers
                     {
                         FullName = registerModel.FullName,
                         Mail = registerModel.Mail
-                    
+
                     });
 
                     Roles.AddUserToRole(registerModel.Username, registerModel.Role);
@@ -124,10 +125,10 @@ namespace Portal.Controllers
         public ActionResult ChangePassword(ChangePasswordModel cpm)
         {
 
-             if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                bool isPasswordChanged=WebSecurity.ChangePassword(WebSecurity.CurrentUserName, cpm.OldPassword, cpm.NewPassword);
-                if(isPasswordChanged)
+                bool isPasswordChanged = WebSecurity.ChangePassword(WebSecurity.CurrentUserName, cpm.OldPassword, cpm.NewPassword);
+                if (isPasswordChanged)
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -154,13 +155,57 @@ namespace Portal.Controllers
         [HttpPost, Authorize, ValidateAntiForgeryToken]
         public ActionResult UserProfile(UserProfileModel upm)
         {
-           if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 AccountViewModel.UpdateUserProfile(upm);
                 ViewBag.Message = "Profile is saved successfully.";
+
             }
-          
+
             return View();
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            string emailAddress = WebSecurity.GetEmail(model.UserName);
+            if (!string.IsNullOrEmpty(emailAddress))
+            {
+                string confirmationToken =
+                    WebSecurity.GeneratePasswordResetToken(model.UserName);
+                dynamic email = new Email("ChngPasswordEmail");
+                email.To = emailAddress;
+                email.UserName = model.UserName;
+                email.ConfirmationToken = confirmationToken;
+                email.Send();
+
+                return RedirectToAction("ResetPwStepTwo");
+            }
+
+            return RedirectToAction("InvalidUserName");
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult ResetPasswordConfirmation(string Id)
+        {
+            ResetPasswordConfirmModel model = new ResetPasswordConfirmModel() { Token = Id };
+            return View(model);
+        }
+
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult ResetPasswordConfirmation(ResetPasswordConfirmModel model)
+        {
+            if (WebSecurity.ResetPassword(model.Token, model.NewPassword))
+            {
+                return RedirectToAction("PasswordResetSuccess");
+            }
+            return RedirectToAction("PasswordResetFailure");
+        }
+
     }
 }
